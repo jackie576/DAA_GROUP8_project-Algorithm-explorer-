@@ -117,98 +117,40 @@ Each benchmark is repeated three times, and average results are calculated to su
 
 The application uses Java's built-in libraries and does not require external dependencies.
 
-## 4. Project Structure
 
-```text
-AlgorithmExplorer/
-│
-├── src/
-│   ├── Main.java
-│   │
-│   ├── frontend/
-│   │   ├── MainWindow.java
-|   |   ├── GaugePanel.java
-|   |   ├── GroupBanner.java
-|   |   ├── HanoiPanel.java
-|   |   ├── PlaybackControls.java
-|   |   ├── RecursionRunPanel.java
-│   │   ├── Theme.java
-│   │   ├── RecursionPanel.java
-│   │   ├── DataStructuresPanel.java
-│   │   ├── SortingPanel.java
-│   │   └── AnalysisPanel.java
-│   │
-│   ├── recursion/
-│   │   └── RecursionAlgorithms.java
-│   │
-│   ├── datastructures/
-│   │
-│   ├── sorting/
-│   │   ├── BubbleSort.java
-│   │   ├── InsertionSort.java
-│   │   ├── SelectionSort.java
-│   │   ├── MergeSort.java
-│   │   ├── QuickSort.java
-│   │   └── SortResult.java
-│   │
-│   ├── analysis/
-│   │   ├── BenchmarkResult.java
-│   │   ├── BenchmarkRunner.java
-│   │   ├── InputGenerator.java
-│   │   └── ComplexityAnalyzer.java
-│   │
-│   └── visualization/
-│       ├── SortingVisualizer.java
-│       ├── VisualizationPanel.java
-│       └── HanoiVisualizer.java
-│
-└── README.md
-```
-
-## 5. System Requirements
+## 4. System Requirements
 
 To run the application, you need:
 
 - Java Development Kit (JDK) 26 or a compatible newer JDK.
 - A computer running Windows, Linux, or macOS.
-- A terminal or command prompt.
+- A terminal or command prompt or vs code.
 - The project source code.
 
-## 6. Installation and Setup
+## 5. Installation and Setup
 
 ### Step 1: Clone the Repository
 
 Open your terminal and execute:
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/jackie576/DAA_GROUP8_project-Algorithm-explorer- 
 ```
-
-Replace `YOUR_GITHUB_REPOSITORY_URL` with the actual repository URL.
 
 ### Step 2: Navigate to the Project Folder
 
 ```bash
-cd AlgorithmExplorer
+cd repository name.
 ```
 
-### Step 3: Compile the Application
 
-Run the following command from the project root directory:
 
-```bash
-javac -d out src/Main.java src/frontend/*.java src/recursion/*.java src/datastructures/*.java src/sorting/*.java src/analysis/*.java src/visualization/*.java
-```
-
-### Step 4: Run the Application
-
-```bash
-java -cp out Main
-```
+### Step 3: Run the Application
+look for main.java in the source code and run in vs code.
 
 The Algorithm Explorer graphical interface should now launch.
 
-## 7. How to Use the Application
+## 6. How to Use the Application
 
 1. Launch the application.
 2. Select the required module from the navigation panel.
@@ -217,11 +159,11 @@ The Algorithm Explorer graphical interface should now launch.
 5. Execute the operation.
 6. Observe the results, visualizations, and performance information displayed by the application.
 
-For sorting, users can step through operations or use automatic playback.
+For sorting, users can watch the sorts happen graphically.
 
-For Tower of Hanoi, users can enter the number of disks and watch the recursive solution execute graphically.
+For Tower of Hanoi, users can enter the number of disks and watch the recursive solution execute graphically and if you want you can play manually.
 
-## 8. Algorithm Complexity Reference
+## 7. Algorithm Complexity Reference
 
 | Algorithm | Best Case | Average Case | Worst Case |
 |---|---|---|---|
@@ -233,7 +175,7 @@ For Tower of Hanoi, users can enter the number of disks and watch the recursive 
 
 These are the standard theoretical time complexities. Actual execution times may vary depending on the input and computer hardware.
 
-## 9. Educational Objectives
+## 8. Educational Objectives
 
 Algorithm Explorer was developed to support practical understanding of:
 
@@ -245,20 +187,23 @@ Algorithm Explorer was developed to support practical understanding of:
 - Comparing theoretical complexity with experimental results.
 - Java programming and graphical user interface development.
 
-## 10. Project Status
+## 9. Project Status
 
 **Development Status: Completed**
 
 The four main modules have been developed and integrated into the desktop application.
 
-The remaining project deliverables include the final technical report and repository submission.
-
-## 11. Contributors
+## 10. Contributors
 
 This project was developed as part of a group academic project for the Design and Analysis of Algorithms course.
 
-_Add the names of all group members here._
+OTHIENO DAVID
+GHAI SAMUEL MACH
+NAKIRE JACKLINE
+TAYEBWA PEDSON
+SEMWANGA ROBERT
+KYEMBA MOHAMMED
 
-## 12. License
+## 11. License
 
 This project was developed for educational and academic purposes.
