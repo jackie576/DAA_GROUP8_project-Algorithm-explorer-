@@ -25,7 +25,7 @@ public class PerformanceAnalyzer {
     public static final String REVERSE = "Reverse Sorted Input";
 
     //private constructor to prevent instantiation of the PerformanceAnalyzer class.
-    private PerformanceAnalyzer() {
+    public PerformanceAnalyzer() {
     }
 
     // Generates an array of n random integers.
