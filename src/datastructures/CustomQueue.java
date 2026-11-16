@@ -6,7 +6,7 @@
 package datastructures;
 
 // this is the class that models a simple queue with dynamic resizing and shifting.
-public class CustomQueue {
+public class CustomQueue { 
 
     // class attributes.
     private int[] queue;
