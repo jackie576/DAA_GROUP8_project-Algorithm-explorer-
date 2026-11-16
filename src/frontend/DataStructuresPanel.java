@@ -1,5 +1,11 @@
+// Shows the data-structure explorer panels and lets the user trigger operations.
+// This file contains the core logic for this part of the program and keeps the UI
+// focused on the algorithm being explained instead of mixing presentation with logic.
+
+// this tells the compiler the package the file belongs to.
 package frontend;
 
+// these are the imports for the classes and packages used in this file.
 import datastructures.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,16 +16,16 @@ import visualization.DataStructureVisualizer.Kind;
 import visualization.Legend;
 import visualization.LineChart;
 
-/** Data structures page: pile / row / ring / node drawings, gauges and graph. */
+// This class is the main panel for the data-structure explorer, allowing users to interact with various data structures.
 public class DataStructuresPanel extends JPanel {
 
+    // class attributes for the different data structures and UI components.
     private CustomStack stack = new CustomStack();
     private CustomQueue queue = new CustomQueue();
     private CircularQueue circularQueue = new CircularQueue();
     private SinglyLinkedList singlyList = new SinglyLinkedList();
     private DoublyLinkedList doublyList = new DoublyLinkedList();
     private final BalancedBrackets brackets = new BalancedBrackets();
-
     private final JComboBox<String> structure = Theme.combo(new String[]{
         "Stack", "Linear Queue", "Circular Queue",
         "Singly Linked List", "Doubly Linked List", "Balanced Brackets"
@@ -28,20 +34,18 @@ public class DataStructuresPanel extends JPanel {
     private final JTextField input = Theme.input("");
     private final JLabel quickInfo = new JLabel();
     private final JTextArea steps = Theme.outputArea();
-
     private final DataStructureVisualizer visualizer = new DataStructureVisualizer();
     private final LineChart activity = new LineChart();
-
     private final GaugePanel sizeGauge = new GaugePanel("Size", Theme.ACCENT);
     private final GaugePanel opsGauge = new GaugePanel("Operations", Theme.BAR_UNSORTED);
     private final GaugePanel stepsGauge = new GaugePanel("Steps", Theme.BAR_COMPARING);
     private final GaugePanel timeGauge = new GaugePanel("Time", Theme.GAUGE_TIME);
-
     private int operationCount;
     private int maxSteps = 1;
     private double maxMicros = 1;
     private Timer bracketTimer;
 
+    // class constructor that sets up the layout and initializes the UI components.
     public DataStructuresPanel() {
 
         setLayout(new BorderLayout(16, 0));
@@ -60,8 +64,7 @@ public class DataStructuresPanel extends JPanel {
         showCurrent("");
     }
 
-    // ---------------------------------------------------------- layout
-
+    // builds the left column of the data-structure explorer panel.
     private JPanel buildLeftColumn() {
 
         JPanel controls = Theme.createCard();
@@ -114,6 +117,7 @@ public class DataStructuresPanel extends JPanel {
         return column;
     }
 
+    // builds the right column of the data-structure explorer panel.
     private JPanel buildRightColumn() {
 
         JPanel gauges = new JPanel(new GridLayout(1, 4, 12, 0));
@@ -162,6 +166,7 @@ public class DataStructuresPanel extends JPanel {
         return column;
     }
 
+    // method that builds a section label
     private JLabel section(String text) {
         JLabel label = Theme.heading(text);
         label.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -170,17 +175,18 @@ public class DataStructuresPanel extends JPanel {
         return label;
     }
 
+    // method that sets the alignment and maximum size of a component
     private void left(JComponent c, int height) {
         c.setAlignmentX(Component.LEFT_ALIGNMENT);
         c.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
     }
 
-    // ----------------------------------------------------- structure state
-
+    // method that returns the selected structure
     private String selected() {
         return (String) structure.getSelectedItem();
     }
 
+    // method that returns the kind of structure
     private Kind kindOf(String name) {
         switch (name) {
             case "Stack": return Kind.STACK;
@@ -191,6 +197,7 @@ public class DataStructuresPanel extends JPanel {
         }
     }
 
+    // method that returns a snapshot of the selected structure
     private int[] snapshot(String name) {
         switch (name) {
             case "Stack": return stack.getSnapshot();
@@ -201,11 +208,13 @@ public class DataStructuresPanel extends JPanel {
         }
     }
 
+    // method that returns the size of the selected structure
     private int sizeOf(String name) {
         return name.equals("Circular Queue")
                 ? circularQueue.getSize() : snapshot(name).length;
     }
 
+    // method that resets all structures
     private void resetStructures() {
         stopBrackets();
         stack = new CustomStack();
@@ -218,6 +227,7 @@ public class DataStructuresPanel extends JPanel {
         showCurrent("Structure reset.");
     }
 
+    // method that clears all history
     private void clearHistory() {
         stopBrackets();
         operationCount = 0;
@@ -231,7 +241,7 @@ public class DataStructuresPanel extends JPanel {
         timeGauge.setValue(0, "0");
     }
 
-    /** Draws the selected structure as it is right now (no highlight). */
+    // Draws the selected structure as it is right now (no highlight).
     private void showCurrent(String message) {
         String name = selected();
         if (name.equals("Balanced Brackets")) {
@@ -245,10 +255,12 @@ public class DataStructuresPanel extends JPanel {
         sizeGauge.setValue(Math.min(1, sizeOf2(name) / 10.0), String.valueOf(sizeOf2(name)));
     }
 
+    // method that returns the size of the selected structure
     private int sizeOf2(String name) {
         return name.equals("Balanced Brackets") ? 0 : sizeOf(name);
     }
 
+    // Updates the operations combo box and quick info based on the selected structure.
     private void updateOperations() {
         String selected = selected();
         String[] options;
@@ -298,8 +310,9 @@ public class DataStructuresPanel extends JPanel {
         quickInfo.setForeground(Theme.TEXT);
     }
 
-    // ------------------------------------------------------------ actions
+    
 
+    // Runs the selected structure operation, updates the visual state, and records the result.
     private void execute() {
         String name = selected();
         String op = (String) operation.getSelectedItem();
@@ -392,6 +405,7 @@ public class DataStructuresPanel extends JPanel {
         }
     }
 
+    // Parses the input value as an integer, throwing an exception if it's empty.
     private int parseValue(String value) {
         if (value.isEmpty()) {
             throw new IllegalArgumentException("Please enter an integer value.");
@@ -399,13 +413,14 @@ public class DataStructuresPanel extends JPanel {
         return Integer.parseInt(value);
     }
 
+    // Extracts the last step from the operation report for display purposes.
     private static String lastStep(OperationReport report) {
         String[] lines = report.getSteps().trim().split("\n");
         String last = lines[lines.length - 1];
         return last.replaceFirst("^Step \\d+: ", "");
     }
 
-    /** Updates gauges, the graph and the steps text after an operation. */
+    // Updates gauges, the graph and the steps text after an operation.
     private void record(int size, OperationReport report, String title) {
         operationCount++;
         double micros = report.getExecutionTime() / 1000.0;
@@ -425,7 +440,7 @@ public class DataStructuresPanel extends JPanel {
         steps.setCaretPosition(0);
     }
 
-    // ------------------------------------------------- bracket animation
+    //  bracket animation
 
     private static class BracketStep {
         final int index;
@@ -441,6 +456,7 @@ public class DataStructuresPanel extends JPanel {
         }
     }
 
+    // Animates bracket matching one step at a time so the user can see push/pop decisions.
     private void showBrackets(String expr, OperationReport report) {
         List<BracketStep> list = new ArrayList<>();
         StringBuilder open = new StringBuilder();
