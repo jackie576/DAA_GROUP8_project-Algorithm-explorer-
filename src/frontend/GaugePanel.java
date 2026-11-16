@@ -1,17 +1,25 @@
+// Draws a compact gauge view for performance or structure metrics.
+// This file contains the core logic for this part of the program and keeps the UI
+// focused on the algorithm being explained instead of mixing presentation with logic.
+
+// this tells the compiler the package the file belongs to.
 package frontend;
 
+// these are the imports for the classes and packages used in this file.
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import javax.swing.JComponent;
 
-/** Circular gauge: tick ring, solid progress arc, value and label. */
+// this is the class that draws a compact gauge view for performance or structure metrics.
 public class GaugePanel extends JComponent {
 
+    // class attributes.    
     private final Color color;
     private String label;
     private String text = "0";
     private double fraction;
 
+    // class constructor that initializes the gauge panel with a label and color.
     public GaugePanel(String label, Color color) {
         this.label = label;
         this.color = color;
@@ -19,17 +27,20 @@ public class GaugePanel extends JComponent {
         setPreferredSize(new Dimension(150, 150));
     }
 
+    // class that sets the label of the gauge panel and repaints it.
     public void setLabel(String label) {
         this.label = label;
         repaint();
     }
 
+    // class that sets the value and text of the gauge panel and repaints it.
     public void setValue(double fraction, String text) {
         this.fraction = Math.max(0, Math.min(1, fraction));
         this.text = text;
         repaint();
     }
 
+    // class that paints the gauge panel with the current value, label, and progress arc.
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
